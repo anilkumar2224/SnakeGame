@@ -65,21 +65,21 @@ function handleTouchMove(evt) {
     var yDiff = yDown - yUp;
 
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 0 ) {
+        if ( xDiff > 0 && d!="RIGHT" ) {
             d="LEFT";
             snake.dir(-1,0);
             /* left swipe */ 
-        } else {
+        } else if( xDiff < 0 && d!="LEFT") {
             /* right swipe */
             d="RIGHT";
             snake.dir(1,0);
         }                       
     } else {
-        if ( yDiff > 0 ) {
+        if ( yDiff > 0 && d!="DOWN" ) {
             /* up swipe */ 
             d="UP";
             snake.dir(0,-1);
-        } else { 
+        } else if(yDiff < 0 && d!="UP") { 
             /* down swipe */
             d="DOWN";
             snake.dir(0,1);
@@ -220,7 +220,7 @@ function Snake(){
 }
 
 }
-
+var elem=document.documentElement;
 var start=document.getElementById('start');
 var topp=document.getElementById('top');
 var card=document.getElementById('card');
@@ -233,5 +233,7 @@ start.addEventListener('click',()=>{
 card.classList.add('hide');
 topp.classList.remove('hide');
 canvas.style.backgroundColor='aquamarine';
+if(elem.requestFullscreen){ elem.requestFullscreen();}
 game();
 });
+
